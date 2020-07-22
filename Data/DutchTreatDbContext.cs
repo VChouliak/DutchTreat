@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data
 {
-    public class DutchTreatContext : DbContext
+    public class DutchTreatDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
