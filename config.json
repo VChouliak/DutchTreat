@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DutchTreatConnectionString": "Server=localhost;Database=DutchTreat;User Id=sa;Password=P@ssWord;MultipleActiveResultSets=true;Trusted_Connection=false"
+  }
+}
