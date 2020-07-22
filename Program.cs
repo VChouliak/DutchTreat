@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DutchTreat.Data;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace DutchTreat
@@ -13,21 +16,37 @@ namespace DutchTreat
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = BuildWebHost(args);
+
+            SeedDb(host);
+
+            host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(SetupConfiguration)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-
-        private static void SetupConfiguration(HostBuilderContext ctx, IConfigurationBuilder builder)
+        private static void SeedDb(IWebHost host)
         {
+            var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var seeder = scope.ServiceProvider.GetService<Seeder>();
+                seeder.Seed();
+            }
+        }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(SetupConfiguration)
+                .UseStartup<Startup>()
+                .Build();
+
+        private static void SetupConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
+        {
+            // Removing the default configuration options
             builder.Sources.Clear();
-            builder.AddJsonFile("config.json", false, true);
+
+            builder.AddJsonFile("config.json", false, true)
+                   .AddEnvironmentVariables();
         }
     }
 }
