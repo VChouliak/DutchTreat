@@ -9,7 +9,12 @@ namespace DutchTreat.Data
 {
     public class DutchTreatDbContext : DbContext
     {
+        public DutchTreatDbContext(DbContextOptions<DutchTreatDbContext> options) : base(options)
+        {
+
+        }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+
     }
 }
