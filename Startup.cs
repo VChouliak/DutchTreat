@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DutchTreat.Data;
+using DutchTreat.Data.Repositories.Implementations;
+using DutchTreat.Data.Repository;
 using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +32,7 @@ namespace DutchTreat
                 config.UseSqlServer(_configuration.GetConnectionString("DutchTreatConnectionString"));
             });
             services.AddTransient<Seeder>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddTransient<IMailService, DummyMailService>();
             services.AddControllersWithViews();
         }
