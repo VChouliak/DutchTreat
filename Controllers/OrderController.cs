@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DutchTreat.Data.Models;
 using DutchTreat.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DutchTreat.Controllers
@@ -21,12 +22,12 @@ namespace DutchTreat.Controllers
             _logger = logger;
         }
 
-       [HttpGet]
-       public IActionResult GetOrders()
+        [HttpGet]
+        public IActionResult GetOrders()
         {
             try
-            {
-                return Ok(_orderRepository.GetAll());
+            {                
+                return Ok(_orderRepository.GetAllOrders());
             }
             catch (Exception e)
             {
@@ -34,20 +35,55 @@ namespace DutchTreat.Controllers
                 return BadRequest("Failed to get orders.");
             }
         }
-  
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetOrderById(int id)
+        {
+            try
+            {
+                var order = _orderRepository.GetAllOrders().Where(order => order.Id == id).FirstOrDefault();
+
+                if (order != null)
+                {
+                    return Ok(order);
+                }
+                else
+                {
+                    return NotFound($"Order with id: {id} not found.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Failed to get order with Id: {id}\n{e}");
+                return BadRequest($"Failed to get order with Id: {id}");
+            }
+        }
 
         [HttpPost]
         public IActionResult CreateOrder([FromBody]Order order)
         {
+            bool isOrderSaved = false;
+            bool isOrderAdded = false;
             try
             {
-                return Ok("Order created.");               
+                isOrderAdded = _orderRepository.AddEntity(order);
+
+                if (isOrderAdded)
+                {
+                    isOrderSaved = _orderRepository.SaveAll();
+                    
+                    if (isOrderSaved)
+                    {                        
+                        return Created($"/api/order/{order.Id}", order);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to save order{ex}");
                 return BadRequest("Failed to save order.");
             }
+            return BadRequest("Failed to save order.");
         }
     }
 }
