@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DutchTreat.Data;
+using DutchTreat.Data.Repositories;
 using DutchTreat.Data.Repositories.Implementations;
 using DutchTreat.Data.Repository;
 using DutchTreat.Services;
@@ -13,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json;
 
 namespace DutchTreat
 {
@@ -32,9 +35,16 @@ namespace DutchTreat
                 config.UseSqlServer(_configuration.GetConnectionString("DutchTreatConnectionString"));
             });
             services.AddTransient<Seeder>();
+            services.AddScoped(typeof(ICRUDRepository<>),typeof(CRUDRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddTransient<IMailService, DummyMailService>();
             services.AddControllersWithViews();
+            services.AddMvc().AddNewtonsoftJson(o =>
+            {
+                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            //.AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
