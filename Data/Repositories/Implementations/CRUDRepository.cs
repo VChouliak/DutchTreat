@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repositories.Implementations
 {
-    public abstract class CRUDRepository<T> : ICRUDRepository<T> where T : class
+    public class CRUDRepository<T> : ICRUDRepository<T> where T : class
     {
         private DutchTreatDbContext _dbContext;
         private readonly ILogger<CRUDRepository<T>> _logger;
@@ -92,5 +93,38 @@ namespace DutchTreat.Data.Repositories.Implementations
             }
             return updated;
         }
+
+        public IEnumerable<T> FindBy(string name, object value)
+        {
+            var results = new List<T>();
+
+            try
+            {
+                if (isPropertyExists(name))
+                {
+                    foreach (var entity in _dbContext.Set<T>())
+                    {
+                        var propertyValue = entity.GetType().GetProperty(name).GetValue(entity);
+                        if (propertyValue.Equals(value))
+                        {
+                            results.Add(entity);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"Property with {name} was not found:\n{ex}");
+            }
+
+            return results;
+        }
+
+        private static bool isPropertyExists(string name)
+        {            
+            var properties = typeof(T).GetProperties();
+            return properties.Where(p => p.Name.ToLower().Equals(name.ToLower())).Count() > 0;
+        }                
     }
 }

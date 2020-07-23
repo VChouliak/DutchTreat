@@ -12,5 +12,6 @@ namespace DutchTreat.Data.Repositories
         public bool DeleteEntity(T entity);
         public bool UpdateEntity(T entity);
         public bool SaveAll();
+        public IEnumerable<T> FindBy(string name, object value);
     }
 }
