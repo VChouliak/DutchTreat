@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DutchTreat.Data.Models;
 using DutchTreat.Data.Repositories;
+using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -15,19 +17,21 @@ namespace DutchTreat.Controllers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<OrderController> _logger;
+        private readonly IMapper _mapper;
 
-        public OrderController(IOrderRepository orderRepository, ILogger<OrderController> logger)
+        public OrderController(IOrderRepository orderRepository, ILogger<OrderController> logger, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetOrders()
         {
             try
-            {                
-                return Ok(_orderRepository.GetAllOrders());
+            {
+                return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_orderRepository.GetAllOrders()));
             }
             catch (Exception e)
             {
@@ -45,7 +49,7 @@ namespace DutchTreat.Controllers
 
                 if (order != null)
                 {
-                    return Ok(order);
+                    return Ok(_mapper.Map<Order, OrderViewModel>(order));
                 }
                 else
                 {
@@ -60,29 +64,42 @@ namespace DutchTreat.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOrder([FromBody]Order order)
+        public IActionResult CreateOrder([FromBody] OrderViewModel order)
         {
             bool isOrderSaved = false;
             bool isOrderAdded = false;
+
             try
             {
-                isOrderAdded = _orderRepository.AddEntity(order);
-
-                if (isOrderAdded)
+                if (ModelState.IsValid)
                 {
-                    isOrderSaved = _orderRepository.SaveAll();
-                    
-                    if (isOrderSaved)
-                    {                        
-                        return Created($"/api/order/{order.Id}", order);
+                    var newOrder = _mapper.Map<OrderViewModel, Order>(order);
+                    if (newOrder.OrderDate == DateTime.MinValue)
+                    {
+                        newOrder.OrderDate = DateTime.Now;
+                    }
+
+                    isOrderAdded = _orderRepository.AddEntity(newOrder);
+
+                    if (isOrderAdded)
+                    {
+                        isOrderSaved = _orderRepository.SaveAll();
+
+                        if (isOrderSaved)
+                        {
+                            return Created($"/api/order/{order.OrderId}", _mapper.Map<Order, OrderViewModel>(newOrder));
+                        }
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to save order{ex}");
                 return BadRequest("Failed to save order.");
             }
+
+
             return BadRequest("Failed to save order.");
         }
     }
