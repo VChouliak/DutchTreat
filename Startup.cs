@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
+using AutoMapper;
+using System.Reflection;
 
 namespace DutchTreat
 {
@@ -34,6 +36,7 @@ namespace DutchTreat
             services.AddDbContext<DutchTreatDbContext>(config=> {
                 config.UseSqlServer(_configuration.GetConnectionString("DutchTreatConnectionString"));
             });
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<Seeder>();
             services.AddScoped(typeof(ICRUDRepository<>),typeof(CRUDRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
