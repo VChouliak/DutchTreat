@@ -26,7 +26,7 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                return Ok(_productRepository.GetAllProducts());
+                return Ok(_productRepository.GetAll());
             }
             catch (Exception ex)
             {
@@ -35,6 +35,11 @@ namespace DutchTreat.Controllers
             }
         }
 
+        [HttpGet("{id:int}")]
+        public IActionResult FindById(int id)
+        {
+            return Ok(_productRepository.FindBy(nameof(Product.Id),id));
+        }
         public IActionResult Index()
         {
             return View();
