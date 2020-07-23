@@ -6,11 +6,24 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Models
 {
-  public class Order
-  {
-    public int Id { get; set; }
-    public DateTime OrderDate { get; set; }
-    public string OrderNumber { get; set; }
-    public ICollection<OrderItem> Items { get; set; }
-  }
+    public class Order
+    {
+        public int Id { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string OrderNumber { get; set; }
+        public ICollection<OrderItem> Items { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Order order &&
+                   Id == order.Id &&
+                   OrderDate == order.OrderDate &&
+                   OrderNumber == order.OrderNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, OrderDate, OrderNumber);
+        }
+    }
 }
