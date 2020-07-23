@@ -62,7 +62,7 @@ namespace DutchTreat.Controllers
 
         public IActionResult Shop()
         {
-            var results = _productRepository.GetAllProducts();
+            var results = _productRepository.GetAll();
             return View(results);
         }
 
