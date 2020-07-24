@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DutchTreat.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,10 +50,10 @@ namespace DutchTreat.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     UnitPrice = table.Column<decimal>(nullable: false),
-                    OrderId = table.Column<int>(nullable: true)
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,13 +63,13 @@ namespace DutchTreat.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderItem_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
