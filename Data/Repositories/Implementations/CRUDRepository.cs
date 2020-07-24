@@ -29,7 +29,7 @@ namespace DutchTreat.Data.Repositories.Implementations
             catch (Exception ex)
             {
                 _logger.LogError($"Entity was not added:\n{ex}");
-                
+
             }
             return added;
         }
@@ -55,10 +55,10 @@ namespace DutchTreat.Data.Repositories.Implementations
             var result = _dbContext.Set<T>();
             try
             {
-                if(result != null)
+                if (result != null)
                 {
                     return result;
-                }              
+                }
             }
             catch (Exception ex)
             {
@@ -70,7 +70,20 @@ namespace DutchTreat.Data.Repositories.Implementations
 
         public bool SaveAll()
         {
-            return _dbContext.SaveChanges() > 0;
+            bool saved = false;
+
+            try
+            {
+                saved = _dbContext.SaveChanges() > 0;
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"SaveChanges failed\n{ex}");
+            }
+
+            return saved;
         }
 
         public bool UpdateEntity(T entity)
@@ -79,12 +92,30 @@ namespace DutchTreat.Data.Repositories.Implementations
             try
             {
                 var entityToUpdate = _dbContext.Set<T>().FirstOrDefault(e => e.Equals(entity));
-                if (true)
+                if (entityToUpdate != null)
                 {
-                    entityToUpdate = entity;
-                    updated = true;
+                    Type type = entity.GetType();
+
+                    if (typeof(T).Equals(type))
+                    {
+                        var source = entity.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+
+                        var target = entityToUpdate.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
+
+                        foreach (var property in source)
+                        {
+                            var dest = target.FirstOrDefault(x => x.Name == property.Name);
+                            if (dest != null && dest.CanWrite)
+                                dest.SetValue(entityToUpdate, property.GetValue(entity, null), null);
+                        }                       
+                        updated = true;
+                    }
                 }
-               
+                else
+                {
+                    _logger.LogError($"Entity was not found");
+                }
+
             }
             catch (Exception ex)
             {
@@ -122,9 +153,9 @@ namespace DutchTreat.Data.Repositories.Implementations
         }
 
         private static bool isPropertyExists(string name)
-        {            
+        {
             var properties = typeof(T).GetProperties();
             return properties.Where(p => p.Name.ToLower().Equals(name.ToLower())).Count() > 0;
-        }                
+        }
     }
 }
