@@ -18,7 +18,7 @@ namespace DutchTreat.Data.Repositories.Implementations
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return _dbContext.Orders
+            return _dbContext.Orders.AsNoTracking()
                 .Include(order=>order.Items)
                 .ThenInclude(item => item.Product)
                 .ToList();
