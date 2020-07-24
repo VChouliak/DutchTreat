@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DutchTreat.Data.Models;
 using DutchTreat.Data.Repositories;
+using DutchTreat.Helpers;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -95,12 +96,55 @@ namespace DutchTreat.Controllers
 
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to save order{ex}");
-                return BadRequest("Failed to save order.");
+                _logger.LogError($"Failed to save order\n{ex}");
+                return BadRequest($"Failed to save order\n{ex}");
             }
 
 
             return BadRequest("Failed to save order.");
+        }
+
+        [HttpPut]
+        public IActionResult UpdateOrder([FromBody] OrderViewModel order)
+        {
+            var isOrderExists = new OrderItemHelper(_orderRepository).IsOrderExists(order.OrderId);
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var orderToUpdate = _mapper.Map<OrderViewModel, Order>(order);
+
+                    if (isOrderExists)
+                    {
+                        if (_orderRepository.UpdateEntity(orderToUpdate))
+                        {
+                            if (_orderRepository.SaveAll())
+                            {
+                                return Created($"/api/order/{order.OrderId}", _mapper.Map<Order, OrderViewModel>(orderToUpdate));
+                            }
+                            else
+                            {
+                                return BadRequest("Order was not updated");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return NotFound("Order was not found");
+                    }
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to update order\n{ex}");
+                return BadRequest("Failed to update order.");
+            }
+            return BadRequest("Failed to update order.");
         }
     }
 }
