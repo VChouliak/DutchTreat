@@ -12,7 +12,9 @@ namespace DutchTreat.Data
     {
         public MappingProfile()
         {
-            CreateMap<Order, OrderViewModel>().ForMember(orderView => orderView.OrderId, ex=>ex.MapFrom(order=>order.Id)).ReverseMap();
+            CreateMap<Order, OrderViewModel>().ForMember(orderView => orderView.OrderId, ex => ex.MapFrom(order => order.Id)).ReverseMap();
+            CreateMap<OrderItem, OrderItemViewModel>().ReverseMap();
         }
+
     }
 }
