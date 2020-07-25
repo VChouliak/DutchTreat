@@ -9,5 +9,7 @@ namespace DutchTreat.Data.Repositories
     public interface IOrderRepository : ICRUDRepository<Order>
     {
         IEnumerable<Order> GetAllOrders();
+        IEnumerable<Order> GetAllOrdersByUserName(string username);
+        
     }
 }
