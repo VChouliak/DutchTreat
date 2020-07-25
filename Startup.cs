@@ -18,6 +18,10 @@ using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
 using AutoMapper;
 using System.Reflection;
+using DutchTreat.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace DutchTreat
 {
@@ -33,6 +37,24 @@ namespace DutchTreat
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<StoreUser, IdentityRole>(config=>
+            {
+                config.User.RequireUniqueEmail = true;
+            })
+                .AddEntityFrameworkStores<DutchTreatDbContext>();
+
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(config=>
+                {
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = _configuration["Tokens:Issuer"],
+                        ValidAudience = _configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]))
+                    };                
+                });
+
             services.AddDbContext<DutchTreatDbContext>(config=> {
                 config.UseSqlServer(_configuration.GetConnectionString("DutchTreatConnectionString"));
             });
@@ -60,8 +82,9 @@ namespace DutchTreat
 
             app.UseStaticFiles();
             app.UseNodeModules();
-
+            app.UseAuthentication();           
             app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(config=>
             {
                 config.MapControllerRoute("Fallback", "{controller}/{action}/{id?}", new { controller="App", action ="Index"});
