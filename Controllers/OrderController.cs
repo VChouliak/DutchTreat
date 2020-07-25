@@ -7,6 +7,8 @@ using DutchTreat.Data.Models;
 using DutchTreat.Data.Repositories;
 using DutchTreat.Helpers;
 using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Logging;
 namespace DutchTreat.Controllers
 {
     [Route("api/[Controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
@@ -32,7 +35,8 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_orderRepository.GetAllOrders()));
+                var username = User.Identity.Name;
+                return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_orderRepository.GetAllOrdersByUserName(username)));
             }
             catch (Exception e)
             {
