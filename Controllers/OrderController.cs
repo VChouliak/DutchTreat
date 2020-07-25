@@ -69,28 +69,35 @@ namespace DutchTreat.Controllers
         {
             bool isOrderSaved = false;
             bool isOrderAdded = false;
-
+            bool isOrderExists = new OrderItemHelper(_orderRepository).IsOrderExists(order.OrderId);
             try
             {
-                if (ModelState.IsValid)
+                if (!isOrderExists)
                 {
-                    var newOrder = _mapper.Map<OrderViewModel, Order>(order);
-                    if (newOrder.OrderDate == DateTime.MinValue)
+                    if (ModelState.IsValid)
                     {
-                        newOrder.OrderDate = DateTime.Now;
-                    }
-
-                    isOrderAdded = _orderRepository.AddEntity(newOrder);
-
-                    if (isOrderAdded)
-                    {
-                        isOrderSaved = _orderRepository.SaveAll();
-
-                        if (isOrderSaved)
+                        var newOrder = _mapper.Map<OrderViewModel, Order>(order);
+                        if (newOrder.OrderDate == DateTime.MinValue)
                         {
-                            return Created($"/api/order/{order.OrderId}", _mapper.Map<Order, OrderViewModel>(newOrder));
+                            newOrder.OrderDate = DateTime.Now;
+                        }
+
+                        isOrderAdded = _orderRepository.AddEntity(newOrder);
+
+                        if (isOrderAdded)
+                        {
+                            isOrderSaved = _orderRepository.SaveAll();
+
+                            if (isOrderSaved)
+                            {
+                                return Created($"/api/order/{order.OrderId}", _mapper.Map<Order, OrderViewModel>(newOrder));
+                            }
                         }
                     }
+                }
+                else
+                {
+                    return BadRequest($"Order with ID: {order.OrderId} allready exitsts");
                 }
             }
 
@@ -105,7 +112,7 @@ namespace DutchTreat.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateOrder([FromBody] OrderViewModel order)
+        public  IActionResult UpdateOrder([FromBody] OrderViewModel order)
         {
             var isOrderExists = new OrderItemHelper(_orderRepository).IsOrderExists(order.OrderId);
 
@@ -118,8 +125,8 @@ namespace DutchTreat.Controllers
                     if (isOrderExists)
                     {
                         if (_orderRepository.UpdateEntity(orderToUpdate))
-                        {
-                            if (_orderRepository.SaveAll())
+                        {                          
+                            if ( _orderRepository.SaveAll())
                             {
                                 return Created($"/api/order/{order.OrderId}", _mapper.Map<Order, OrderViewModel>(orderToUpdate));
                             }
@@ -146,5 +153,46 @@ namespace DutchTreat.Controllers
             }
             return BadRequest("Failed to update order.");
         }
+
+        [HttpDelete]
+        public IActionResult DeleteOrder([FromBody] OrderViewModel order)
+        {
+            var isOrderExists = new OrderItemHelper(_orderRepository).IsOrderExists(order.OrderId);
+
+            if (isOrderExists)
+            {
+                var orderToDelete = _mapper.Map<OrderViewModel, Order>(order);
+
+                try
+                {
+                    if (_orderRepository.DeleteEntity(orderToDelete))
+                    {
+                        if (_orderRepository.SaveAll())
+                        {
+                            return Ok("Order is deleted");
+                        }
+                        else
+                        {
+                            return BadRequest("Order was not deleted");
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Order was not deleted");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Failed to delete order\n{ex}");
+                    return BadRequest("Failed to delete order.");
+                }
+            }
+            else
+            {
+                return NotFound("Order was not found");
+            }
+
+        }
     }
+
 }

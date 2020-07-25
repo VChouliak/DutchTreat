@@ -10,7 +10,7 @@ namespace DutchTreat.Helpers
     public class OrderItemHelper
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IOrderItemRepository _orderItemRepository;
+        
 
         public OrderItemHelper()
         {
@@ -20,11 +20,7 @@ namespace DutchTreat.Helpers
         {
             _orderRepository = orderRepository;           
         }
-        public OrderItemHelper(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository)
-        {
-            _orderRepository = orderRepository;
-            _orderItemRepository = orderItemRepository;
-        }
+       
 
         public bool IsOrderExists(int orderId)
         {
@@ -32,11 +28,6 @@ namespace DutchTreat.Helpers
                 .GetAllOrders()
                 .Where(order => order.Id == orderId)
                 .FirstOrDefault() != null;
-        }
-
-        public bool IsItemExists(int id)
-        {
-            return _orderItemRepository.FindBy(nameof(OrderItem.Id),id).FirstOrDefault() != null;
         }
     }
 }
