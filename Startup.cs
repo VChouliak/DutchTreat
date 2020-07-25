@@ -40,8 +40,7 @@ namespace DutchTreat
             services.AddTransient<Seeder>();
             services.AddScoped(typeof(ICRUDRepository<>),typeof(CRUDRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();           
             services.AddTransient<IMailService, DummyMailService>();
             services.AddControllersWithViews();
             services.AddMvc().AddNewtonsoftJson(o =>
