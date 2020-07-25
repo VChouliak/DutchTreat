@@ -31,7 +31,7 @@ namespace DutchTreat.Controllers
         [HttpGet]
         public IActionResult Get(int orderId)
         {
-            var order = _repository.FindBy(nameof(Order.Id), orderId).FirstOrDefault();
+            var order = _repository.GetAllOrders().Where(order=>order.Id == orderId).FirstOrDefault();
             if (order != null) return Ok(_mapper.Map<IEnumerable<OrderItem>, IEnumerable<OrderItemViewModel>>(order.Items));
             return NotFound();
         }
@@ -39,7 +39,7 @@ namespace DutchTreat.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int orderId, int id)
         {
-            var order = _repository.FindBy(nameof(Order.Id), orderId).FirstOrDefault(); 
+            var order = _repository.GetAllOrders().Where(order => order.Id == orderId).FirstOrDefault(); 
             if (order != null)
             {
                 var item = order.Items.Where(i => i.Id == id).FirstOrDefault();
