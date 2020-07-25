@@ -23,5 +23,10 @@ namespace DutchTreat.Data.Repositories.Implementations
                 .ThenInclude(item => item.Product)
                 .ToList();
         }
+
+        public IEnumerable<Order> GetAllOrdersByUserName(string username)
+        {
+            return GetAllOrders().Where(order => order.User.UserName.Equals(username));
+        }
     }
 }
