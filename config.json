@@ -5,5 +5,10 @@
   "Logging": {
     "Default": "Information",
     "Microsoft": "Warning"
+  },
+  "Tokens": {
+    "Key": "sdafgasdfadsfasA:dasdsf;asdfasdfaasdrewseae",
+    "Issuer": "http://localhost:5555",
+    "Audience": "users"
   }
 }
