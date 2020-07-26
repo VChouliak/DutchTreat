@@ -29,5 +29,15 @@ namespace DutchTreat.Data.Repositories.Implementations
         {
             return GetAllOrders().Where(order => order.User.UserName.Equals(username)).ToList();
         }
+
+        public bool AddOrder(Order newOrder)
+        {            
+            foreach (var item in newOrder.Items)
+            {
+                item.Product = _dbContext.Products.Find(item.Product.Id);
+            }
+
+            return AddEntity(newOrder);
+        }
     }
 }
