@@ -60,7 +60,7 @@ namespace DutchTreat
             });
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddTransient<Seeder>();
-            services.AddScoped(typeof(ICRUDRepository<>),typeof(CRUDRepository<>));
+            services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();           
             services.AddTransient<IMailService, DummyMailService>();

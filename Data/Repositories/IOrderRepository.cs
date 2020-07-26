@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repositories
 {
-    public interface IOrderRepository : ICRUDRepository<Order>
+    public interface IOrderRepository : IBaseRepository<Order>
     {
         IEnumerable<Order> GetAllOrders();
         IEnumerable<Order> GetAllOrdersByUserName(string username);

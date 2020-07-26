@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repositories.Implementations
 {
-    public class OrderRepository : CRUDRepository<Order>, IOrderRepository
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
         private readonly DutchTreatDbContext _dbContext;
-        public OrderRepository(DutchTreatDbContext dbContext, ILogger<CRUDRepository<Order>> logger) : base(dbContext, logger)
+        public OrderRepository(DutchTreatDbContext dbContext, ILogger<BaseRepository<Order>> logger) : base(dbContext, logger)
         {
             _dbContext = dbContext;
         }

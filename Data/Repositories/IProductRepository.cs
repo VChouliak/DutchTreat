@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repository
 {
-   public interface IProductRepository:ICRUDRepository<Product>
+   public interface IProductRepository:IBaseRepository<Product>
     {       
           
     }

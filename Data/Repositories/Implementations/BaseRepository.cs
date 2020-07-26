@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repositories.Implementations
 {
-    public class CRUDRepository<T> : ICRUDRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private DutchTreatDbContext _dbContext;
-        private readonly ILogger<CRUDRepository<T>> _logger;
+        private readonly ILogger<BaseRepository<T>> _logger;
 
-        protected CRUDRepository(DutchTreatDbContext dbContext, ILogger<CRUDRepository<T>> logger)
+        protected BaseRepository(DutchTreatDbContext dbContext, ILogger<BaseRepository<T>> logger)
         {
             _dbContext = dbContext;
             _logger = logger;

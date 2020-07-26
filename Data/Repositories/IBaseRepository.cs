@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DutchTreat.Data.Repositories
 {
-    public interface ICRUDRepository<T>
+    public interface IBaseRepository<T>
     {
         public bool AddEntity(T entity);
         public IEnumerable<T> GetAll();
