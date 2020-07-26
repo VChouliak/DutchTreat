@@ -18,10 +18,10 @@ namespace DutchTreat.Data.Repositories.Implementations
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return _dbContext.Orders.AsNoTracking()                
-                .Include(order=>order.User)
+            return _dbContext.Orders.AsNoTracking()
+                .Include(order => order.User)
                 .Include(order => order.Items)
-                .ThenInclude(item => item.Product)                
+                .ThenInclude(item => item.Product)
                 .ToList();
         }
 
@@ -31,13 +31,22 @@ namespace DutchTreat.Data.Repositories.Implementations
         }
 
         public bool AddOrder(Order newOrder)
-        {            
+        {
             foreach (var item in newOrder.Items)
             {
                 item.Product = _dbContext.Products.Find(item.Product.Id);
             }
 
             return AddEntity(newOrder);
+        }
+
+        public bool UpdateOrder(Order order)
+        {
+            foreach (var item in order.Items)
+            {
+                item.Product = _dbContext.Products.Find(item.Product.Id);
+            }
+            return UpdateEntity(order);
         }
     }
 }
