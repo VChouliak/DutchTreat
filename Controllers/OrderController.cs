@@ -99,7 +99,7 @@ namespace DutchTreat.Controllers
                         var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
                         newOrder.User = currentUser;
 
-                        isOrderAdded = _orderRepository.AddEntity(newOrder);
+                        isOrderAdded = _orderRepository.AddOrder(newOrder);
 
                         if (isOrderAdded)
                         {
