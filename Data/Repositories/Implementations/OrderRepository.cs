@@ -18,15 +18,16 @@ namespace DutchTreat.Data.Repositories.Implementations
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return _dbContext.Orders.AsNoTracking()
-                .Include(order=>order.Items)
-                .ThenInclude(item => item.Product)
+            return _dbContext.Orders.AsNoTracking()                
+                .Include(order=>order.User)
+                .Include(order => order.Items)
+                .ThenInclude(item => item.Product)                
                 .ToList();
         }
 
         public IEnumerable<Order> GetAllOrdersByUserName(string username)
         {
-            return GetAllOrders().Where(order => order.User.UserName.Equals(username));
+            return GetAllOrders().Where(order => order.User.UserName.Equals(username)).ToList();
         }
     }
 }
