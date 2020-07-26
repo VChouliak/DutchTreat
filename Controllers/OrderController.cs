@@ -141,7 +141,7 @@ namespace DutchTreat.Controllers
 
                     if (isOrderExists)
                     {
-                        if (_orderRepository.UpdateEntity(orderToUpdate))
+                        if (_orderRepository.UpdateOrder(orderToUpdate))
                         {                          
                             if ( _orderRepository.SaveAll())
                             {
