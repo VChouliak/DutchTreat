@@ -50,7 +50,8 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                var order = _orderRepository.GetAllOrders().Where(order => order.Id == id).FirstOrDefault();
+                var username = User.Identity.Name;
+                var order = _orderRepository.GetAllOrdersByUserName(username).Where(order => order.Id == id).FirstOrDefault();
 
                 if (order != null)
                 {
