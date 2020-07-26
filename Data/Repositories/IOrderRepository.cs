@@ -11,5 +11,6 @@ namespace DutchTreat.Data.Repositories
         IEnumerable<Order> GetAllOrders();
         IEnumerable<Order> GetAllOrdersByUserName(string username);
         public bool AddOrder(Order newOrder);
+        public bool UpdateOrder(Order order);
     }
 }
