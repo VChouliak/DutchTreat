@@ -9,6 +9,7 @@ using DutchTreat.Helpers;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,12 +23,15 @@ namespace DutchTreat.Controllers
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<OrderController> _logger;
         private readonly IMapper _mapper;
+        private readonly UserManager<StoreUser> _userManager;
 
-        public OrderController(IOrderRepository orderRepository, ILogger<OrderController> logger, IMapper mapper)
+
+        public OrderController(IOrderRepository orderRepository, ILogger<OrderController> logger, IMapper mapper, UserManager<StoreUser> userManager)
         {
             _orderRepository = orderRepository;
             _logger = logger;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -36,13 +40,19 @@ namespace DutchTreat.Controllers
             try
             {
                 var username = User.Identity.Name;
-                return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(_orderRepository.GetAllOrdersByUserName(username)));
+                var test = _orderRepository.GetAllOrders();
+                var result = _orderRepository.GetAllOrdersByUserName(username);
+                if (result != null)
+                {
+                    return Ok(_mapper.Map<IEnumerable<Order>, IEnumerable<OrderViewModel>>(result));
+                }
             }
             catch (Exception e)
             {
                 _logger.LogError($"Failed to get orders:\n{e}");
                 return BadRequest("Failed to get orders.");
             }
+            return BadRequest("Failed to get orders.");
         }
 
         [HttpGet("{id:int}")]
@@ -70,7 +80,7 @@ namespace DutchTreat.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOrder([FromBody] OrderViewModel order)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderViewModel order)
         {
             bool isOrderSaved = false;
             bool isOrderAdded = false;
@@ -86,6 +96,8 @@ namespace DutchTreat.Controllers
                         {
                             newOrder.OrderDate = DateTime.Now;
                         }
+                        var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                        newOrder.User = currentUser;
 
                         isOrderAdded = _orderRepository.AddEntity(newOrder);
 
