@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="%2a%2a\**" />
+    <Compile Remove="dutch-app\**" />
+    <Content Remove="%2a%2a\**" />
+    <Content Remove="dutch-app\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="dutch-app\**" />
+    <None Remove="%2a%2a\**" />
+    <None Remove="dutch-app\**" />
+    <TypeScriptCompile Remove="%2a%2a\**" />
+    <TypeScriptCompile Remove="dutch-app\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
@@ -25,10 +38,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="3.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\" />
   </ItemGroup>
 
 </Project>
