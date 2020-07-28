@@ -1,11 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<h3>Shopping Cart</h3>
+<div>Items: {{getData.order.items.length}}</div>
+<div>Subtotal: {{getData.order.subtotal | currency : "EUR" : true}}</div>
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <td>
+                Product
+            </td>
+            <td>
+                Quantity
+            </td>
+            <td>
+                Price
+            </td>
+            <td>
+                Total
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of getData.order.items">
+            <td>
+                {{item.productCategory}} - {{item.productTitle}}
+            </td>
+            <td>
+                {{item.quantity}}
+            </td>
+            <td>
+                {{item.unitPrice | currency : "EUR" : true}}
+            </td>
+            <td>
+                {{(item.unitPrice * item.quantity) | currency : "EUR" : true}}
+            </td>
+        </tr>
+    </tbody>
+</table>
