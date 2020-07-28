@@ -12,8 +12,13 @@ import {Product} from '../../../models/product'
 export class ProductListComponent implements OnInit {
 
   public products: Product[] = [];
+ 
   constructor(private data: DataService) { 
-    
+    this.products = data.products;
+  }
+
+  addProduct(product: Product){
+    this.data.addToOrder(product);
   }
 
   ngOnInit(): void {
