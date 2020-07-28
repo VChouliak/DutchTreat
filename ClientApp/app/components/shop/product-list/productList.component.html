@@ -10,7 +10,7 @@
           <li><strong>Title</strong>: {{ product.title }}</li>
           <li><strong>Description</strong>: {{ product.artDescription }}</li>
         </ul>
-        <button id="buyButton" class="btn btn-success">Buy</button>
+        <button id="buyButton" class="btn btn-success" (click)="addProduct(product)">Buy</button>
       </div>
     </div>  
   </div>
