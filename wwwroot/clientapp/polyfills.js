@@ -3026,17 +3026,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 2:
+/***/ 1:
 /*!**************************************!*\
   !*** multi ./ClientApp/polyfills.ts ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\choul\Documents\Projects\DutchTreat\ClientApp\polyfills.ts */"./ClientApp/polyfills.ts");
+module.exports = __webpack_require__(/*! /home/vitaly/Dokumente/Projects/DutchTreat/DutchTreat/ClientApp/polyfills.ts */"./ClientApp/polyfills.ts");
 
 
 /***/ })
 
-},[[2,"runtime"]]]);
-//# sourceMappingURL=polyfills-es2015.js.map
+},[[1,"runtime"]]]);
+//# sourceMappingURL=polyfills.js.map

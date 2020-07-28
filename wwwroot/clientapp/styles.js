@@ -432,17 +432,17 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ 3:
+/***/ 2:
 /*!************************************!*\
   !*** multi ./ClientApp/styles.css ***!
   \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\choul\Documents\Projects\DutchTreat\ClientApp\styles.css */"./ClientApp/styles.css");
+module.exports = __webpack_require__(/*! /home/vitaly/Dokumente/Projects/DutchTreat/DutchTreat/ClientApp/styles.css */"./ClientApp/styles.css");
 
 
 /***/ })
 
-},[[3,"runtime"]]]);
-//# sourceMappingURL=styles-es2015.js.map
+},[[2,"runtime"]]]);
+//# sourceMappingURL=styles.js.map
