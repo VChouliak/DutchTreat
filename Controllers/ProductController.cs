@@ -26,7 +26,7 @@ namespace DutchTreat.Controllers
         {
             try
             {
-                return Ok(_productRepository.GetAll());
+                return Ok(_productRepository.GetAll().OrderBy(p=>p.Artist));
             }
             catch (Exception ex)
             {
