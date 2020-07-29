@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { Product } from '../models/product';
@@ -49,7 +49,7 @@ export class DataService {
     }
   }
 
-  public get loginRequired(): boolean{
+  public get loginRequired(): boolean {
     return this.token.length == 0 || this.tokenExpiration > new Date();
   }
 
@@ -60,6 +60,21 @@ export class DataService {
           let tokenInfo = response;
           this.token = tokenInfo.token;
           this.tokenExpiration = tokenInfo.expiration;
+          return true;
+        }));
+  }
+
+  public checkout() {
+    if (!this.order.orderNumber) {
+      this.order.orderNumber = this.order.orderDate.getFullYear().toString() + this.order.orderDate.getTime().toString();
+    }
+
+    return this.http.post("/api/order", this.order, {
+      headers: new HttpHeaders({ "Authorization": "Bearer " + this.token })
+    })
+      .pipe(
+        map(response => {
+          this.order = new Order();
           return true;
         }));
   }
