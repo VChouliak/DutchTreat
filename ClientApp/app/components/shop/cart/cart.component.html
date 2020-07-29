@@ -27,11 +27,12 @@
                 {{item.quantity}}
             </td>
             <td>
-                {{item.unitPrice | currency : "EUR" : true}}
+                {{item.unitPrice | currency : "EUR" : "symbol"}}
             </td>
             <td>
-                {{(item.unitPrice * item.quantity) | currency : "EUR" : true}}
+                {{(item.unitPrice * item.quantity) | currency : "EUR" : "symbol"}}
             </td>
         </tr>
     </tbody>
 </table>
+<a routerLink = "checkout" class="btn btn-primary" *ngIf="getData.order.items.length > 0">Checkout</a>
