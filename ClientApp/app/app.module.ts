@@ -12,14 +12,16 @@ import { RouterModule } from '@angular/router';
 
 const routes = [
   {path: "", component: ShopComponent},
-  {path: "/checkout", component: CheckoutComponent}
+  {path: "checkout", component: CheckoutComponent}
 
 ];
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    CartComponent
+    CartComponent,
+    ShopComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
