@@ -25,7 +25,7 @@
           <td class="text-right">{{ data.order.subtotal|currency:'EUR':"symbol" }}</td>
         </tr>
       </table>
-      <button class="btn btn-success">Complete Purchase</button>
+      <button class="btn btn-success" (click)="onCheckout()">Complete Purchase</button>
       <a routerLink="/" class="btn btn-info">Cancel</a>
     </div>
   
