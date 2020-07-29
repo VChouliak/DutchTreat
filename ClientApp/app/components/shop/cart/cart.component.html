@@ -35,4 +35,4 @@
         </tr>
     </tbody>
 </table>
-<a routerLink = "checkout" class="btn btn-primary" *ngIf="getData.order.items.length > 0">Checkout</a>
+<button class="btn btn-success" class="btn btn-primary" *ngIf="getData.order.items.length > 0" (click)="onCheckout()">Checkout</button>
