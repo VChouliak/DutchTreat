@@ -15,7 +15,12 @@ export class CheckoutComponent implements OnInit {
   errorMessage: string = "";
 
   onCheckout() {
-    
+    this.data.checkout().subscribe(success=>{
+      if(success){
+        this.router.navigate([""]);
+      }
+    },
+    err=> this.errorMessage = "Failed to save order");
   }
 
   ngOnInit(): void {
