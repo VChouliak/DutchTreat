@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from 'ClientApp/app/services/data.service';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: "./checkout.component.html",
-  styles: [
+  styleUrls: [ "./checkout.component.css"
   ]
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(public data: DataService, public router: Router) { }
+
+  errorMessage: string = "";
+
+  onCheckout() {
+    
+  }
 
   ngOnInit(): void {
   }
