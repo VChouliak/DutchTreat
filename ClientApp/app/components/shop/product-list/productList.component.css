@@ -70,3 +70,73 @@ li {
     padding: 0.25rem;
     border-bottom: 1px solid;
 }
+
+.custom-card__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+}
+
+.custom-card__price-box {
+    color: whitesmoke;
+    margin: auto;
+    text-align: center;
+}
+
+.custom-card__price-only {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.custom-card__price-value {
+    font-size: 5rem;
+    font-weight: 100;
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: #3b3b3d;
+    color: #e1e4ec;
+    padding: 15px 40px;
+    border-radius: 100px;
+    display: inline-block;
+    animation: moveInUp 2s ease-out .75s;
+    animation-fill-mode: backwards;
+    transition: all .2s;
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    background-color: #3b3b3d;
+    color: #e1e4ec;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
