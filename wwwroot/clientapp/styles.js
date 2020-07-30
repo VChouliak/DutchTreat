@@ -40,7 +40,7 @@ module.exports = content.locals || {};
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(true);
 // Module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", "",{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,8EAA8E","file":"styles.css","sourcesContent":["/* You can add global styles to this file, and also import other style files */\n"]}]);
+exports.push([module.i, "body:not(header) {\n    font-family: \"Lato\", sans-serif;\n    font-weight: 400;\n    font-size: 16px;\n    color: #777777;\n    padding: 30px;\n    height: 95vh;\n    background-image: linear-gradient( to bottom, rgba(249, 250, 251) 20%, rgba(108, 117, 125, 0.8)), url(\"/img/SK-C-6.jpg\");\n    background-size: cover;\n    background-position: top;\n    background-attachment: fixed;\n}", "",{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA;IACI,+BAA+B;IAC/B,gBAAgB;IAChB,eAAe;IACf,cAAc;IACd,aAAa;IACb,YAAY;IACZ,wHAAwH;IACxH,sBAAsB;IACtB,wBAAwB;IACxB,4BAA4B;AAChC","file":"styles.css","sourcesContent":["body:not(header) {\n    font-family: \"Lato\", sans-serif;\n    font-weight: 400;\n    font-size: 16px;\n    color: #777777;\n    padding: 30px;\n    height: 95vh;\n    background-image: linear-gradient( to bottom, rgba(249, 250, 251) 20%, rgba(108, 117, 125, 0.8)), url(\"/img/SK-C-6.jpg\");\n    background-size: cover;\n    background-position: top;\n    background-attachment: fixed;\n}"]}]);
 // Exports
 module.exports = exports;
 
