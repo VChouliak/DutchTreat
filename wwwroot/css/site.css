@@ -1,86 +1,136 @@
-﻿/*body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-input[type=submit] {
-    width: auto;
-}
-
-input, textarea {
-    font-size: 18px;
-    width: 200px;
-}
-
-label {
+.container-fluid {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
     font-size: 16px;
+    color: #777777;
+    padding: 30px;
+    height: 95vh;
+    background-image: linear-gradient( to bottom, rgba(249, 250, 251), rgba(108, 117, 125, 0.8)), url("../img/SK-C-6.jpg");
+    background-size: cover;
+    background-position: top;
 }
 
-#messageForm {
-    background-color: #d0d0d0;
+.greeting {
+    color: #3b3b3d;
+    text-transform: uppercase;
+    backface-visibility: hidden;
 }
 
-    #messageForm input[type=submit] {
-        background-color: green;
-        color: white;
-    }
-
-ul.product-props {
-    font-size: small;
+.greeting-primary {
+    display: block;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 35px;
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
 }
 
-    ul.product-props li {
-        list-style-type: none;
-    }
+.greeting-secondary {
+    display: block;
+    font-size: 38px;
+    font-weight: 400;
+    letter-spacing: 15px;
+    animation-name: moveInRight;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    margin: 30px;
+}
 
-.product-info {
-    border: 1px solid grey;
+.greeting-btn:link,
+.greeting-btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: #3b3b3d;
+    color: #e1e4ec;
+    padding: 15px 40px;
+    border-radius: 100px;
     display: inline-block;
-    padding: 8px 2px;
-    margin: 2px;
-    width: 450px;
-    background-color: lightgray;
-    border-radius: 5px;
+    animation: moveInUp 2s ease-out .75s;
+    animation-fill-mode: backwards;
+    transition: all .2s;
+    position: relative;
 }
 
-    .product-info img {
-        margin: 3px;
-        float: left;
-        border: 1px solid black;
-        max-width: 150px;
-    }
-
-#loginToggle {
-    cursor: pointer;
+.greeting-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
 }
 
-.popup-form {
-    padding: 5px;
-    border: 2px black inset;
+.greeting-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.greeting-btn::after {
+    content: "";
     display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    background-color: #3b3b3d;
+    color: #e1e4ec;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
 }
 
-    .popup-form input {
-        width: 200px;
-    }
-
-    .popup-form label {
-        width: 150px;
-        display: inline-block;
-    }
-
-    .popup-form input[type=checkbox], .popup-form input[type=submit] {
-        width: auto;
-    }
-
-menu li {
-    display: inline;
+.greeting-btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
 }
 
-    menu li::after {
-        content: ' |';
-    }
+.text-box {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
 
-    menu li:last-of-type::after {
-        content: "";
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translate(-100px);
     }
-*/
+    80% {
+        transform: translate(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translate(100px);
+    }
+    80% {
+        transform: translate(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
