@@ -1,24 +1,20 @@
-.product-info .product-name {
-    font-size: large;
-    font-weight: bold;
-}
-
 .custom-card {
     perspective: 150rem;
     position: relative;
     height: 25rem;
-    margin-bottom: 1rem;
+    margin-bottom: 7rem;
 }
 
 .custom-card__side {
-    height: 25rem;
-    transition: all .8s ease;
+    height: 30rem;
+    transition: all 1.5s ease;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     backface-visibility: hidden;
     border-radius: 3px;
+    overflow: hidden;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .15);
 }
 
@@ -32,9 +28,45 @@
 }
 
 .custom-card:hover .custom-card__side--front {
-    transform: rotateY(180deg);
+    transform: rotateY(-180deg);
 }
 
 .custom-card:hover .custom-card__side--back {
     transform: rotateY(0);
+}
+
+.custom-card__picture {
+    height: 14.5rem;
+    background-size: 100% 100%;
+    background-blend-mode: screen;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.custom-card__heading {
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: white;
+    position: absolute;
+    top: 10.5rem;
+    right: 0.099rem;
+    width: 75%;
+}
+
+.custom-card__heading-span {
+    padding: 0.3rem 0.45rem;
+    background-image: linear-gradient( to right bottom, rgb(168, 168, 168, .65), rgb(123, 118, 133, .65))
+}
+
+ul {
+    list-style: none;
+    width: 80%;
+}
+
+li {
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.25rem;
+    border-bottom: 1px solid;
 }

@@ -12,7 +12,20 @@
                     <li><strong>Description</strong>: {{ product.artDescription }}</li>
                 </ul>
                 <button id="buyButton" class="btn btn-success" (click)="addProduct(product)">Buy</button> -->
-                front
+                <div class="custom-card__picture" [ngStyle]="{'background-image': 'linear-gradient( to right bottom,   #636161, #3b3b3b), url(/img/'+product.artId +'.jpg)'}">
+
+                </div>
+                <h4 class="custom-card__heading">
+                    <span class="custom-card__heading-span">
+            {{ product.category }} {{ product.size }}
+          </span>
+                </h4>
+                <div class="custom-card__details">
+                    <ul>
+                        <li>{{product.artist}}</li>
+                        <li>{{product.title}}</li>
+                    </ul>
+                </div>
             </div>
             <div class="custom-card__side custom-card__side--back">
                 Back
