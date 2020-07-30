@@ -28,7 +28,13 @@
                 </div>
             </div>
             <div class="custom-card__side custom-card__side--back">
-                Back
+                <div class="custom-card__cta">
+                    <div class="custom-card__price-box">
+                        <p class="custom-card__price-only">Only</p>
+                        <p class="custom-card__price-value">{{ product.price | currency:"EUR":"symbol" }}</p>
+                    </div>
+                    <a href="#" class="btn" (click)="addProduct(product)">Add to cart</a>
+                </div>
 
             </div>
         </div>
