@@ -11,11 +11,14 @@ import {CheckoutComponent} from './components/shop/checkout/checkout.component'
 import { RouterModule } from '@angular/router';
 import {LoginComponent} from './components/login/login.component'
 import { FormsModule }   from '@angular/forms';
+import { AboutComponent } from './components/shop/about/about.component';
+import {NavbarComponent} from './components/shop/navbar/navbar.component'
 
 const routes = [
   {path: "", component: ShopComponent},
   {path: "checkout", component: CheckoutComponent},
-  {path: "login", component: LoginComponent}
+  {path: "login", component: LoginComponent},
+  {path: "about", component: AboutComponent},
 
 ];
 @NgModule({
@@ -25,7 +28,9 @@ const routes = [
     CartComponent,
     ShopComponent,
     CheckoutComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    AboutComponent
     
   ],
   imports: [
