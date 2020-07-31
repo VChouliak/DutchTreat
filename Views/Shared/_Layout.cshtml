@@ -14,30 +14,7 @@
     
 </head>
 <body>
-    <header >
-        <nav class="navbar navbar-light bg-light navbar-expand-md">
-            <h1 class="navbar-brand"><i class="fa fa-paint-brush"></i> Welcome to Dutch Treat</h1>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="menu" class="navbar-collapse collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="About">About</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="App" asp-action="Shop">Shop</a></li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Login</a></li>
-                    }
-                </ul>
-            </div>       
-        </nav>
-    </header>
+  
     <section class="container-fluid">        
         @RenderBody()
     </section>
