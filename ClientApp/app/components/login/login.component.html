@@ -1,21 +1,30 @@
+<div class="text-center">
+    <h2 class="heading-secondary">Login</h2>
+</div>
+
 <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <div *ngIf="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
-      <form (submit)="onLogin()" #theForm="ngForm" novalidate>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" [(ngModel)]="creds.username" #username="ngModel" required />
-          <div class="text-danger" *ngIf="username.touched && username.invalid && username.errors.required" >Username is required!</div>
+    <div class="col-md-8 offset-md-2">
+        <div *ngIf="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
+        <div class="login">
+            <div class="login__form">
+                <form (submit)="onLogin()" #theForm="ngForm" novalidate>
+                    <div class="form__group">
+                        <div class="text-danger" *ngIf="username.touched && username.invalid && username.errors.required">Username is required!</div>
+                        <input class="form__input" placeholder="Username" type="text" name="username" [(ngModel)]="creds.username" #username="ngModel" required />
+                        <label class="form__label" for="username">Username</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-danger" *ngIf="password.touched && password.invalid && password.errors.required">Password is required!</div>
+                        <input class="form__input" placeholder="Password" type="password" name="password" [(ngModel)]="creds.password" required #password="ngModel" />
+                        <label class="form__label" for="password">Password</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn" value="Login" [disabled]="theForm.invalid" />
+                        <a routerLink="/" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="creds.password" required #password="ngModel" />
-          <div class="text-danger" *ngIf="password.touched && password.invalid && password.errors.required">Password is required!</div>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-success" value="Login" [disabled]="theForm.invalid" />
-          <a routerLink="/" class="btn btn-default">Cancel</a>
-        </div>
-      </form>
+
     </div>
-  </div>
+</div>
