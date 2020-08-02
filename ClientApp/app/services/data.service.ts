@@ -49,6 +49,20 @@ export class DataService {
     }
   }
 
+  public deleteFromOrder(id: number) {
+    let item: OrderItem = this.order.items.find(i => i.productId == id);
+
+    if (item) {
+      if (item.quantity > 1) {
+        item.quantity--;
+      }
+      else {
+        const index = this.order.items.indexOf(item);
+        this.order.items.splice(index, 1);
+      }
+    }
+  }
+
   public get loginRequired(): boolean {
     return this.token.length == 0 || this.tokenExpiration > new Date();
   }
