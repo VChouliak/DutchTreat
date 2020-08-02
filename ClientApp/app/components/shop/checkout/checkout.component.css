@@ -1,4 +1,114 @@
 .checkout-thumb {
     max-width: 100px;
-  }
-  
+}
+
+.section-confirm {
+    padding: 1rem 0;
+}
+
+.heading-secondary {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-block;
+    background-image: linear-gradient(to right, #a8a8a8, #7b7685);
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 2px;
+    transition: all .2s;
+    margin-bottom: 80px;
+}
+
+.order {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, .1);
+    background: rgba(white, .6);
+    border-radius: 3px;
+    padding: 1rem;
+    padding-left: 3rem;
+    transform: skewX(-12deg);
+}
+
+.order__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    shape-outside: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    transform: translateX(-2rem) skewX(12deg);
+    position: relative;
+}
+
+.order__content {
+    transform: skewX(12deg);
+}
+
+.order__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: whitesmoke;
+    text-transform: uppercase;
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0;
+    transition: all 1s;
+    backface-visibility: hidden;
+}
+
+.order:hover .order__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+    transform: scale(1.4);
+    backface-visibility: hidden;
+    transition: all 1s;
+}
+
+.order:hover img {
+    transform: scale(1);
+    filter: blur(3px) brightness(80%);
+}
+
+a {
+    font-size: 1rem;
+    color: #3b3b3d;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid #3b3b3d;
+    padding: 3px;
+    transition: all .2s;
+    backface-visibility: hidden;
+}
+
+a:hover {
+    background-color: #3b3b3d;
+    color: #e1e4ec;
+    box-shadow: 0 .1rem 2rem rgba(0, 0, 0, .5);
+    transform: translateY(-2px);
+}
+
+a:active {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+    transform: translateY(0);
+}
+
+.btn-container {
+    transform: skewX(12deg);
+}
+
+.table {
+    margin-top: 50%;
+}
