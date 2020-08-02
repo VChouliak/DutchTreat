@@ -33,6 +33,7 @@
     border-bottom: 3px solid transparent;
     width: 100%;
     display: block;
+    transition: all .3s;
 }
 
 .form__input:placeholder-shown+.form__label {
