@@ -3,15 +3,6 @@
     <div class="product-info col-md-4" *ngFor="let product of products">
         <div class="custom-card">
             <div class="custom-card__side custom-card__side--front">
-                <!--   <img src="/img/{{ product.artId }}.jpg" class="img-fluid" [alt]="product.title" />
-                <div class="product-name">{{ product.category }} - {{ product.size }}</div>
-                <ul class="product-props list-unstyled">
-                    <li><strong>Price</strong>: {{ product.price | currency:"EUR":"symbol" }}</li>
-                    <li><strong>Artist</strong>: {{ product.artist }}</li>
-                    <li><strong>Title</strong>: {{ product.title }}</li>
-                    <li><strong>Description</strong>: {{ product.artDescription }}</li>
-                </ul>
-                <button id="buyButton" class="btn btn-success" (click)="addProduct(product)">Buy</button> -->
                 <div class="custom-card__picture" [ngStyle]="{'background-image': 'linear-gradient( to right bottom,   #636161, #3b3b3b), url(/img/'+product.artId +'.jpg)'}">
 
                 </div>
@@ -33,7 +24,7 @@
                         <p class="custom-card__price-only">Only</p>
                         <p class="custom-card__price-value">{{ product.price | currency:"EUR":"symbol" }}</p>
                     </div>
-                    <a href="#" class="btn" (click)="addProduct(product)">Add to cart</a>
+                    <a routerLink="" class="btn" (click)="addProduct(product)">Add to cart</a>
                 </div>
 
             </div>
