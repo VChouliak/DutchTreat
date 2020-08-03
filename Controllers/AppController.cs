@@ -14,7 +14,7 @@ namespace DutchTreat.Controllers
     public class AppController : Controller
     {
         private IMailService _mailService;
-        private IProductRepository _productRepository;    
+        private IProductRepository _productRepository;
 
         public AppController(IMailService mailService, IProductRepository productRepository)
         {
@@ -35,23 +35,24 @@ namespace DutchTreat.Controllers
         }
 
         [HttpPost("contact")]
-        public IActionResult Contact(ContactViewModel model)
+        public IActionResult Contact([FromBody] ContactViewModel model)
         {
-            string message = "";
-
             if (ModelState.IsValid)
             {
-                _mailService.SendMessage("johndoe@hotmail.com", model.Subject, $"From: {model.UserName} - {model.Email} Message: {model.Message}");
-                message = "Message sent!!!";
-            } 
+                try
+                {
+                    _mailService.SendMessage("johndoe@hotmail.com", model.Subject, $"From: {model.UserName} - {model.Email} Message: {model.Message}");
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex);
+                }
+            }
             else
             {
-                message = "Please fill all requered fields";
+                return BadRequest(ModelState);
             }
-
-            ViewBag.Message = message;
-            ModelState.Clear();
-            return View();
         }
 
         [HttpGet("about")]
@@ -61,10 +62,10 @@ namespace DutchTreat.Controllers
             return View();
         }
 
-        
+
         public IActionResult Shop()
         {
-            var results = _productRepository.GetAll().OrderBy(p=>p.Category);
+            var results = _productRepository.GetAll().OrderBy(p => p.Category);
             return View(results);
         }
 
