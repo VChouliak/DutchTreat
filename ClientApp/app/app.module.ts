@@ -12,13 +12,15 @@ import { RouterModule } from '@angular/router';
 import {LoginComponent} from './components/login/login.component'
 import { FormsModule }   from '@angular/forms';
 import { AboutComponent } from './components/shop/about/about.component';
-import {NavbarComponent} from './components/shop/navbar/navbar.component'
+import {NavbarComponent} from './components/shop/navbar/navbar.component';
+import { ContactComponent } from './components/contact/contact.component'
 
 const routes = [
   {path: "", component: ShopComponent},
   {path: "checkout", component: CheckoutComponent},
   {path: "login", component: LoginComponent},
   {path: "about", component: AboutComponent},
+  {path: "contact", component: ContactComponent}
 
 ];
 @NgModule({
@@ -30,7 +32,8 @@ const routes = [
     CheckoutComponent,
     LoginComponent,
     NavbarComponent,
-    AboutComponent
+    AboutComponent,
+    ContactComponent
     
   ],
   imports: [
