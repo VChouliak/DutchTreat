@@ -14,13 +14,6 @@ export class ContactComponent implements OnInit {
   public successMessage: string="";
   public contactMessage: Contact = new Contact();
 
-  // public messageRequest={
-  //     username:"",
-  //     email:"",
-  //     subject:"",
-  //     message:""  
-  // };
-
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
