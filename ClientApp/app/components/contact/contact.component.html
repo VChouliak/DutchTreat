@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div *ngIf="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
+        <div class="contact">
+            <div class="contact__form">
+                <div class="text-center">
+                    <h2 class="heading-secondary">Contact</h2>
+                </div>
+                <form (submit)="sendMessageAndGetResponse()" #theForm="ngForm">
+                    <div class="form__group">
+                        <div class="text-danger" *ngIf="username.touched && username.invalid && username.errors.required">Username is required!</div>
+                        <input type="text" class="form__input" name="username" [(ngModel)]="contactMessage.username" #username="ngModel" placeholder="Your Name" required/>
+                        <label class="form__label">Your Name</label>
+                    </div>
+                    <div class="form__group">
+                        <div class="text-danger" *ngIf="email.touched && email.invalid && email.errors.required">Email is required!</div>
+                        <input type="email" class="form__input" name="email" [(ngModel)]="contactMessage.email" #email="ngModel" placeholder="Email" required/>
+                        <label class="form__label">Email</label>
+                    </div>
+                    <div class="form__group">
+                        <div class="text-danger" *ngIf="subject.touched && subject.invalid && subject.errors.required">Subject is required!</div>
+                        <input type="text" class="form__input" name="subject" [(ngModel)]="contactMessage.subject" #subject="ngModel" placeholder="Subject" required/>
+                        <label class="form__label">Subject</label>
+                    </div>
+                    <div class="form__group">
+                        <div class="text-danger" *ngIf="message.touched && message.invalid && message.errors.required">Message is required!</div>
+                        <textarea rows="4" class="form__input" name="message" [(ngModel)]="contactMessage.message" #message="ngModel" placeholder="Message" required></textarea>
+                        <label class="form__label" asp-for="Message">Message</label>
+                    </div>
+                    <div *ngIf="successMessage">
+                        <h4>{{ successMessage }}</h4>
+                    </div>
+                    <div [hidden]="successMessage" class="form-group">
+                        <input type="submit" class="btn" value="Send" [disabled]="theForm.invalid" />
+                        <a routerLink="/" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
