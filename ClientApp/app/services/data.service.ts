@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, from } from 'rxjs';
 import { Product } from '../models/product';
 import { Order, OrderItem } from '../models/order';
+import {Contact} from '../models/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class DataService {
   private tokenExpiration: Date;
   public products: Product[] = []
   public order: Order = new Order();
+  public contact: Contact;
 
   constructor(private http: HttpClient) { }
 
@@ -91,6 +93,21 @@ export class DataService {
           this.order = new Order();
           return true;
         }));
+  }
+
+  public sendMessage(message: Contact){
+    return this.http.post("/contact",message)
+    .pipe(
+      map(
+        response=>{
+      return true;
+    },
+    error=>{
+      console.log("Message deliver failed");
+      console.log(error);
+      return false;
+    }
+    ));
   }
 }
 
